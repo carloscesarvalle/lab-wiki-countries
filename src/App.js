@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 // import Countries from './countries.json';
 
 //Second solution using an external API
-import axios from 'axios'
+// import axios from 'axios'
 
 import DisplayCountries from './components/DisplayCountries'
 import DisplayCountryDetails from './components/DisplayCountryDetails'
@@ -19,13 +19,22 @@ const App = () => {
 const [Countries, setCountries] = useState([])
 
 useEffect(()=>{
-  const getData = async () => {
-    let res = await axios.get('https://countries.tech-savvy.tech/countries')
-    console.log(res)
-    setCountries(res.data)
-  }
-  getData()
-},[])
+
+  //Solution a: using axios
+  // const getData = async () => {
+  //   let res = await axios.get('https://countries.tech-savvy.tech/countries')
+  //   console.log(res)
+  //   setCountries(res.data)
+  // }
+  // getData()
+
+  //Solution b: using fetch
+  fetch('https://countries.tech-savvy.tech/countries')
+  .then(res => res.json())
+  // .then(json => console.log(json))
+  .then(json => setCountries(json))
+}
+,[])
 
   return (
     <div className="App">
